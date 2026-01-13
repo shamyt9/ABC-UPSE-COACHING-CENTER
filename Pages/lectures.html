@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Demo Lectures | Competitive Exam Institute</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../css/courses.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                background-color: #f8f9fa;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            .scontainer {
+                max-width: 1200px;
+                margin: 80px auto;
+                padding: 20px;
+            }
+
+            /* ===== SECTION HEADING ===== */
+            .section-heading {
+                text-align: center;
+                padding: 60px 20px 40px;
+                background-color: white;
+                border-radius: 15px;
+                margin-bottom: 40px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            }
+
+            .main-title {
+                font-size: 2.8rem;
+                color: #1a2a6c;
+                margin-bottom: 15px;
+                font-weight: 700;
+                position: relative;
+                display: inline-block;
+            }
+
+            .main-title:after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: linear-gradient(to right, #3a7bd5, #25d366);
+                border-radius: 2px;
+            }
+
+            .sub-text {
+                font-size: 1.2rem;
+                color: #555;
+                max-width: 700px;
+                margin: 25px auto 0;
+                line-height: 1.8;
+            }
+
+            /* ===== VIDEO GRID ===== */
+            .video-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                margin-bottom: 60px;
+            }
+
+            .video-card {
+                background-color: white;
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+                transition: all 0.3s ease;
+            }
+
+            .video-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            }
+
+            .video-container {
+                position: relative;
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+            }
+
+            .video-iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+            .video-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(26, 42, 108, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .video-card:hover .video-overlay {
+                opacity: 1;
+            }
+
+            .play-icon {
+                color: white;
+                font-size: 3rem;
+                background: rgba(58, 123, 213, 0.9);
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .video-info {
+                padding: 25px;
+            }
+
+            .topic-name {
+                font-size: 1.3rem;
+                color: #1a2a6c;
+                font-weight: 600;
+                margin-bottom: 10px;
+                line-height: 1.4;
+            }
+
+            .faculty-info {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .faculty-icon {
+                background-color: #f0f7ff;
+                color: #3a7bd5;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 12px;
+                font-size: 1.1rem;
+            }
+
+            .faculty-name {
+                font-weight: 500;
+                color: #333;
+            }
+
+            .course-badge {
+                display: inline-block;
+                padding: 6px 15px;
+                border-radius: 30px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .course-upsc {
+                background-color: rgba(255, 107, 107, 0.1);
+                color: #ff6b6b;
+            }
+
+            .course-gate {
+                background-color: rgba(58, 123, 213, 0.1);
+                color: #3a7bd5;
+            }
+
+            .course-ssc {
+                background-color: rgba(37, 211, 102, 0.1);
+                color: #25d366;
+            }
+
+            /* ===== CALL TO ACTION ===== */
+            .cta-section {
+                text-align: center;
+                padding: 60px 20px;
+                background: linear-gradient(135deg, #1a2a6c, #3a7bd5);
+                border-radius: 15px;
+                margin-bottom: 40px;
+                box-shadow: 0 10px 30px rgba(26, 42, 108, 0.2);
+                color: white;
+            }
+
+            .cta-title {
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+                font-weight: 600;
+                color: #eee;
+            }
+
+            .cta-subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 600px;
+                margin: 0 auto 30px;
+                line-height: 1.7;
+                color: #f0f7ff;
+            }
+
+            .whatsapp-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                background-color: #25d366;
+                color: white;
+                border: none;
+                padding: 18px 40px;
+                font-size: 1.2rem;
+                font-weight: 600;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            }
+
+            .whatsapp-btn:hover {
+                background-color: #128c7e;
+                transform: translateY(-5px);
+                box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
+            }
+
+            .whatsapp-btn i {
+                font-size: 1.5rem;
+            }
+
+            /* ===== RESPONSIVE DESIGN ===== */
+            @media (max-width: 1024px) {
+                .video-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 25px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .main-title {
+                    font-size: 2.2rem;
+                }
+
+                .sub-text {
+                    font-size: 1.1rem;
+                }
+
+                .video-grid {
+                    gap: 20px;
+                }
+
+                .video-container {
+                    height: 180px;
+                }
+
+                .video-info {
+                    padding: 20px;
+                }
+
+                .cta-title {
+                    font-size: 1.8rem;
+                }
+
+                .cta-subtitle {
+                    font-size: 1rem;
+                }
+
+                .whatsapp-btn {
+                    padding: 16px 35px;
+                    font-size: 1.1rem;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .container {
+                    padding: 15px;
+                }
+
+                .section-heading {
+                    padding: 40px 15px 30px;
+                }
+
+                .main-title {
+                    font-size: 1.9rem;
+                }
+
+                .video-grid {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                }
+
+                .video-container {
+                    height: 200px;
+                }
+
+                .cta-section {
+                    padding: 40px 15px;
+                }
+
+                .cta-title {
+                    font-size: 1.6rem;
+                }
+
+                .whatsapp-btn {
+                    width: 100%;
+                    max-width: 300px;
+                }
+            }
+
+            /* Animation for video cards */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .video-card {
+                animation: fadeInUp 0.6s ease forwards;
+            }
+
+            .video-card:nth-child(2) {
+                animation-delay: 0.1s;
+            }
+            .video-card:nth-child(3) {
+                animation-delay: 0.2s;
+            }
+            .video-card:nth-child(4) {
+                animation-delay: 0.3s;
+            }
+            .video-card:nth-child(5) {
+                animation-delay: 0.4s;
+            }
+            .video-card:nth-child(6) {
+                animation-delay: 0.5s;
+            }
+
+            /* Video Modal Styles */
+            .video-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .video-modal.active {
+                display: flex;
+                opacity: 1;
+            }
+
+            .modal-content {
+                width: 90%;
+                max-width: 900px;
+                position: relative;
+            }
+
+            .modal-iframe {
+                width: 100%;
+                height: 500px;
+                border: none;
+                border-radius: 10px;
+            }
+
+            .modal-close {
+                position: absolute;
+                top: -50px;
+                right: 0;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 2.5rem;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .modal-close:hover {
+                color: #25d366;
+            }
+
+            @media (max-width: 768px) {
+                .modal-iframe {
+                    height: 300px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="sticky-header">
+            <nav>
+                <div class="logo">ABC <span>IAS Academy</span></div>
+                <ul class="nav-links nav-menu">
+                    <li>
+                        <a href="../index.html" class="active">Home</a>
+                    </li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="faculty.html">Faculty</a></li>
+                    <li><a href="testimonial.html">Results</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <a href="contacts.html">Contact</a>
+                </ul>
+                <button class="mobile-menu-btn">☰</button>
+            </nav>
+        </header>
+        <div class="scontainer">
+            <!-- ===== SECTION HEADING ===== -->
+            <section class="section-heading">
+                <h1 class="main-title">Watch Demo Lectures</h1>
+                <p class="sub-text">
+                    Get a glimpse of our teaching methodology before enrolling.
+                    Experience our expert faculty, interactive teaching style,
+                    and comprehensive course structure through these sample
+                    lectures.
+                </p>
+            </section>
+
+            <!-- ===== VIDEO GRID ===== -->
+            <div class="video-grid">
+                <!-- Video 1: UPSC -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe
+                            class="video-iframe"
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?modestbranding=1&rel=0"
+                            title="UPSC Demo Lecture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+                        <div class="video-overlay">
+                            <div
+                                class="play-icon"
+                                data-video="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                            >
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="topic-name">
+                            Indian Polity: Fundamental Rights Explained
+                        </h3>
+                        <div class="faculty-info">
+                            <div class="faculty-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="faculty-name">Prof. Rajesh Sharma</div>
+                        </div>
+                        <span class="course-badge course-upsc">UPSC</span>
+                    </div>
+                </div>
+
+                <!-- Video 2: GATE -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe
+                            class="video-iframe"
+                            src="https://www.youtube.com/embed/9bZkp7q19f0?modestbranding=1&rel=0"
+                            title="GATE Demo Lecture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+                        <div class="video-overlay">
+                            <div
+                                class="play-icon"
+                                data-video="https://www.youtube.com/embed/9bZkp7q19f0"
+                            >
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="topic-name">
+                            Data Structures: Trees and Graphs
+                        </h3>
+                        <div class="faculty-info">
+                            <div class="faculty-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="faculty-name">Dr. Priya Mehta</div>
+                        </div>
+                        <span class="course-badge course-gate">GATE</span>
+                    </div>
+                </div>
+
+                <!-- Video 3: SSC -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe
+                            class="video-iframe"
+                            src="https://www.youtube.com/embed/JwYX52BP2Sk?modestbranding=1&rel=0"
+                            title="SSC Demo Lecture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+                        <div class="video-overlay">
+                            <div
+                                class="play-icon"
+                                data-video="https://www.youtube.com/embed/JwYX52BP2Sk"
+                            >
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="topic-name">
+                            General Awareness: Indian History
+                        </h3>
+                        <div class="faculty-info">
+                            <div class="faculty-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="faculty-name">Prof. Anil Kumar</div>
+                        </div>
+                        <span class="course-badge course-ssc">SSC</span>
+                    </div>
+                </div>
+
+                <!-- Video 4: UPSC -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe
+                            class="video-iframe"
+                            src="https://www.youtube.com/embed/CduA0TULnow?modestbranding=1&rel=0"
+                            title="UPSC Economics Lecture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+                        <div class="video-overlay">
+                            <div
+                                class="play-icon"
+                                data-video="https://www.youtube.com/embed/CduA0TULnow"
+                            >
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="topic-name">
+                            Indian Economy: Budget Analysis
+                        </h3>
+                        <div class="faculty-info">
+                            <div class="faculty-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="faculty-name">Dr. Sunita Reddy</div>
+                        </div>
+                        <span class="course-badge course-upsc">UPSC</span>
+                    </div>
+                </div>
+
+                <!-- Video 5: GATE -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe
+                            class="video-iframe"
+                            src="https://www.youtube.com/embed/7NOSDKb0HlU?modestbranding=1&rel=0"
+                            title="GATE Mathematics Lecture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+                        <div class="video-overlay">
+                            <div
+                                class="play-icon"
+                                data-video="https://www.youtube.com/embed/7NOSDKb0HlU"
+                            >
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="topic-name">
+                            Engineering Mathematics: Calculus
+                        </h3>
+                        <div class="faculty-info">
+                            <div class="faculty-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="faculty-name">Prof. Vikram Singh</div>
+                        </div>
+                        <span class="course-badge course-gate">GATE</span>
+                    </div>
+                </div>
+
+                <!-- Video 6: SSC -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe
+                            class="video-iframe"
+                            src="https://www.youtube.com/embed/V-_O7nl0Ii0?modestbranding=1&rel=0"
+                            title="SSC Reasoning Lecture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+                        <div class="video-overlay">
+                            <div
+                                class="play-icon"
+                                data-video="https://www.youtube.com/embed/V-_O7nl0Ii0"
+                            >
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="topic-name">
+                            Reasoning: Puzzles & Logical Deduction
+                        </h3>
+                        <div class="faculty-info">
+                            <div class="faculty-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="faculty-name">Ms. Neha Patel</div>
+                        </div>
+                        <span class="course-badge course-ssc">SSC</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CALL TO ACTION ===== -->
+            <section class="cta-section">
+                <h2 class="cta-title">Liked Our Teaching Style?</h2>
+                <p class="cta-subtitle">
+                    Video dekh ke turant inquiry karein! Our admission
+                    counselors are ready to answer all your questions and guide
+                    you through the enrollment process.
+                </p>
+                <a
+                    href="https://wa.me/918004230656?text=Hello!%20I%20watched%20your%20demo%20lectures%20and%20would%20like%20to%20know%20more%20about%20admission%20details."
+                    class="whatsapp-btn"
+                    target="_blank"
+                >
+                    <i class="fab fa-whatsapp"></i>
+                    Enquire on WhatsApp
+                </a>
+            </section>
+
+            <!-- Video Modal for Fullscreen Playback -->
+            <div class="video-modal" id="videoModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">&times;</button>
+                    <iframe
+                        class="modal-iframe"
+                        id="modalIframe"
+                        src=""
+                        title="Demo Lecture"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    >
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3 class="footer-logo">ABC IAS Academy</h3>
+                        <p class="footer-tagline">
+                            Your trusted partner in Civil Services preparation
+                            since 2010
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="../index.html">Home</a>
+                        <a href="courses.html">Courses</a>
+                        <a href="faculty.html">Faculty</a>
+                        <a href="testimonial.html">Results</a>
+                        <a href="about.html">About Us</a>
+                        <a href="contacts.html">Contact</a>
+                        <a href="FAQs.html">FAQs</a>
+
+                        <a href="gallery.html">Gallery</a>
+                        <a href="lectures.html">Lectures</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> 123 Academic
+                            Avenue, Mukherjee Nagar, Delhi
+                        </p>
+                        <p><i class="fas fa-phone"></i> +91-8004230656</p>
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            info@abciasacademy.com
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2025 ABC IAS Academy. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Mobile Menu Toggle
+                const mobileMenuBtn =
+                    document.querySelector('.mobile-menu-btn');
+                const navMenu = document.querySelector('.nav-menu');
+
+                mobileMenuBtn.addEventListener('click', function () {
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navMenu.classList.contains(
+                        'active'
+                    )
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                });
+
+                // Video Modal Elements
+                const videoModal = document.getElementById('videoModal');
+                const modalIframe = document.getElementById('modalIframe');
+                const modalClose = document.getElementById('modalClose');
+                const playIcons = document.querySelectorAll('.play-icon');
+
+                // Open modal when play icon is clicked
+                playIcons.forEach((icon) => {
+                    icon.addEventListener('click', function () {
+                        const videoUrl =
+                            this.getAttribute('data-video') +
+                            '?autoplay=1&rel=0';
+                        modalIframe.setAttribute('src', videoUrl);
+                        videoModal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    });
+                });
+
+                // Close modal
+                modalClose.addEventListener('click', function () {
+                    videoModal.classList.remove('active');
+                    modalIframe.setAttribute('src', ''); // Stop video
+                    document.body.style.overflow = 'auto';
+                });
+
+                // Close modal when clicking outside
+                videoModal.addEventListener('click', function (e) {
+                    if (e.target === videoModal) {
+                        videoModal.classList.remove('active');
+                        modalIframe.setAttribute('src', ''); // Stop video
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+
+                // Close modal with Escape key
+                document.addEventListener('keydown', function (e) {
+                    if (
+                        e.key === 'Escape' &&
+                        videoModal.classList.contains('active')
+                    ) {
+                        videoModal.classList.remove('active');
+                        modalIframe.setAttribute('src', ''); // Stop video
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+
+                // Smooth scroll animation for page elements
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px',
+                };
+
+                const observer = new IntersectionObserver(function (entries) {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe video cards for animation
+                const videoCards = document.querySelectorAll('.video-card');
+                videoCards.forEach((card) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition =
+                        'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(card);
+                });
+
+                // WhatsApp button click tracking (optional)
+                const whatsappBtn = document.querySelector('.whatsapp-btn');
+                whatsappBtn.addEventListener('click', function () {
+                    // You can add analytics tracking here
+                    console.log(
+                        'WhatsApp inquiry clicked after watching demo videos'
+                    );
+                });
+            });
+        </script>
+    </body>
+</html>

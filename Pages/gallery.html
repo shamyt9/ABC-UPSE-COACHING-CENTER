@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Institute Gallery | Competitive Exam Institute</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../css/courses.css" />
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                background-color: #f8f9fa;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            .scontainer {
+                max-width: 1200px;
+                margin: 80px auto;
+                padding: 20px;
+            }
+
+            /* ===== PAGE HEADER SECTION ===== */
+            .page-header {
+                text-align: center;
+                padding: 50px 20px;
+                background-color: white;
+                border-radius: 10px;
+                margin-bottom: 40px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .page-title {
+                font-size: 2.8rem;
+                color: #e1eeff;
+                margin-bottom: 15px;
+                font-weight: 700;
+            }
+
+            .page-subtitle {
+                font-size: 1.2rem;
+                color: #b4b4b4;
+                max-width: 700px;
+                margin: 0 auto;
+                line-height: 1.8;
+            }
+
+            /* ===== LOCATION BANNER ===== */
+            .location-banner {
+                width: 100%;
+                height: 300px;
+                border-radius: 12px;
+                overflow: hidden;
+                margin-bottom: 40px;
+                position: relative;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .map-container {
+                width: 100%;
+                height: 100%;
+            }
+
+            .map-container iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+            .location-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.8),
+                    transparent
+                );
+                color: white;
+                padding: 25px;
+            }
+
+            .institute-name {
+                font-size: 1.8rem;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+
+            .institute-location {
+                font-size: 1.1rem;
+                opacity: 0.9;
+            }
+
+            /* ===== GALLERY FILTER ===== */
+            .gallery-filters {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-bottom: 40px;
+                padding: 20px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .filter-btn {
+                padding: 12px 24px;
+                background-color: #f0f7ff;
+                border: none;
+                border-radius: 30px;
+                color: #3a7bd5;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1rem;
+            }
+
+            .filter-btn:hover {
+                background-color: #e1eeff;
+                transform: translateY(-2px);
+            }
+
+            .filter-btn.active {
+                background-color: #3a7bd5;
+                color: white;
+            }
+
+            /* ===== IMAGE GRID SECTION ===== */
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                margin-bottom: 60px;
+            }
+
+            .gallery-item {
+                border-radius: 12px;
+                overflow: hidden;
+                height: 280px;
+                position: relative;
+                cursor: pointer;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .gallery-item:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            .gallery-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .gallery-item:hover .gallery-img {
+                transform: scale(1.05);
+            }
+
+            .img-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.8),
+                    transparent
+                );
+                color: white;
+                padding: 20px;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .gallery-item:hover .img-overlay {
+                transform: translateY(0);
+            }
+
+            .img-category {
+                font-size: 0.9rem;
+                color: #25d366;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+
+            .img-description {
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            /* ===== LIGHTBOX ===== */
+            .lightbox {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .lightbox.active {
+                display: flex;
+                opacity: 1;
+            }
+
+            .lightbox-content {
+                max-width: 90%;
+                max-height: 90%;
+                position: relative;
+            }
+
+            .lightbox-img {
+                max-width: 100%;
+                max-height: 80vh;
+                border-radius: 8px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .lightbox-close {
+                position: absolute;
+                top: -50px;
+                right: 0;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 2.5rem;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .lightbox-close:hover {
+                color: #25d366;
+            }
+
+            .lightbox-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border: none;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                font-size: 1.5rem;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: background 0.3s ease;
+            }
+
+            .lightbox-nav:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .lightbox-prev {
+                left: 20px;
+            }
+
+            .lightbox-next {
+                right: 20px;
+            }
+
+            .lightbox-caption {
+                position: absolute;
+                bottom: -50px;
+                left: 0;
+                right: 0;
+                text-align: center;
+                color: white;
+                font-size: 1.2rem;
+            }
+
+            /* ===== RESPONSIVE DESIGN ===== */
+            @media (max-width: 1024px) {
+                .gallery-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+                .gallery-item {
+                    height: 250px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .page-title {
+                    font-size: 2.2rem;
+                }
+
+                .gallery-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 16px;
+                }
+
+                .gallery-item {
+                    height: 220px;
+                }
+
+                .location-banner {
+                    height: 250px;
+                }
+
+                .institute-name {
+                    font-size: 1.5rem;
+                }
+
+                .lightbox-nav {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 1.2rem;
+                }
+
+                .lightbox-prev {
+                    left: 10px;
+                }
+
+                .lightbox-next {
+                    right: 10px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .container {
+                    padding: 15px;
+                }
+
+                .page-header {
+                    padding: 30px 15px;
+                }
+
+                .page-title {
+                    font-size: 1.8rem;
+                }
+
+                .page-subtitle {
+                    font-size: 1rem;
+                }
+
+                .gallery-grid {
+                    grid-template-columns: 1fr;
+                    gap: 12px;
+                }
+
+                .gallery-item {
+                    height: 250px;
+                }
+
+                .gallery-filters {
+                    padding: 15px;
+                    gap: 8px;
+                }
+
+                .filter-btn {
+                    padding: 10px 18px;
+                    font-size: 0.9rem;
+                }
+
+                .location-banner {
+                    height: 220px;
+                }
+
+                .institute-name {
+                    font-size: 1.3rem;
+                }
+            }
+
+            /* Loading animation */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .gallery-item {
+                animation: fadeIn 0.5s ease forwards;
+            }
+
+            .gallery-item:nth-child(2) {
+                animation-delay: 0.05s;
+            }
+            .gallery-item:nth-child(3) {
+                animation-delay: 0.1s;
+            }
+            .gallery-item:nth-child(4) {
+                animation-delay: 0.15s;
+            }
+            .gallery-item:nth-child(5) {
+                animation-delay: 0.2s;
+            }
+            .gallery-item:nth-child(6) {
+                animation-delay: 0.25s;
+            }
+            .gallery-item:nth-child(7) {
+                animation-delay: 0.3s;
+            }
+            .gallery-item:nth-child(8) {
+                animation-delay: 0.35s;
+            }
+            .gallery-item:nth-child(9) {
+                animation-delay: 0.4s;
+            }
+            .gallery-item:nth-child(10) {
+                animation-delay: 0.45s;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="sticky-header">
+            <nav>
+                <div class="logo">ABC <span>IAS Academy</span></div>
+                <ul class="nav-links nav-menu">
+                    <li>
+                        <a href="../index.html" class="active">Home</a>
+                    </li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="faculty.html">Faculty</a></li>
+                    <li><a href="testimonial.html">Results</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <a href="contacts.html">Contact</a>
+                </ul>
+                <button class="mobile-menu-btn">☰</button>
+            </nav>
+        </header>
+        <div class="scontainer">
+            <!-- ===== PAGE HEADER SECTION ===== -->
+            <header class="page-header">
+                <h1 class="page-title">Our Institute Gallery</h1>
+                <p class="page-subtitle">
+                    "Explore our classrooms, faculty, and learning environment."
+                </p>
+            </header>
+
+            <!-- ===== LOCATION BANNER ===== -->
+            <section class="location-banner">
+                <div class="map-container">
+                    <!-- Replace with your actual Google Maps embed code -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.037234906163!2d77.20956241508256!3d28.628869082420918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5e5f1e7a0d%3A0x6a8f5e2b2e5e5b1!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1629876543210!5m2!1sen!2sin"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    >
+                    </iframe>
+                </div>
+                <div class="location-overlay">
+                    <div class="institute-name">Competitive Exam Institute</div>
+                    <div class="institute-location">
+                        Central Delhi • Near Connaught Place • Easily Accessible
+                        Location
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== GALLERY FILTER ===== -->
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="campus">Campus</button>
+                <button class="filter-btn" data-filter="classrooms">
+                    Classrooms
+                </button>
+                <button class="filter-btn" data-filter="faculty">
+                    Faculty
+                </button>
+                <button class="filter-btn" data-filter="students">
+                    Students
+                </button>
+                <button class="filter-btn" data-filter="facilities">
+                    Facilities
+                </button>
+            </div>
+
+            <!-- ===== IMAGE GRID SECTION ===== -->
+            <section class="gallery-grid">
+                <!-- Campus / Front View (4 images) -->
+                <div class="gallery-item" data-category="campus">
+                    <img
+                        src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Institute front view with modern architecture"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Campus</div>
+                        <div class="img-description">
+                            Modern Institute Building
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="campus">
+                    <img
+                        src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Institute entrance with student activity"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Campus</div>
+                        <div class="img-description">Main Entrance Area</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="campus">
+                    <img
+                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Institute lobby with reception area"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Campus</div>
+                        <div class="img-description">
+                            Spacious Reception Area
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="campus">
+                    <img
+                        src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Institute library and study area"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Campus</div>
+                        <div class="img-description">Library & Study Zone</div>
+                    </div>
+                </div>
+
+                <!-- Classrooms (6 images) -->
+                <div class="gallery-item" data-category="classrooms">
+                    <img
+                        src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="UPSC classroom with interactive teaching"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Classrooms</div>
+                        <div class="img-description">
+                            UPSC Classroom Session
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="classrooms">
+                    <img
+                        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="SSC classroom with dedicated students"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Classrooms</div>
+                        <div class="img-description">
+                            SSC Classroom Environment
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="classrooms">
+                    <img
+                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="GATE classroom with modern teaching aids"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Classrooms</div>
+                        <div class="img-description">
+                            GATE Preparation Class
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="classrooms">
+                    <img
+                        src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Interactive classroom with smart board"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Classrooms</div>
+                        <div class="img-description">Smart Classroom Setup</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="classrooms">
+                    <img
+                        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Group study room for collaborative learning"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Classrooms</div>
+                        <div class="img-description">Group Discussion Room</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="classrooms">
+                    <img
+                        src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Lecture hall with capacity for large batches"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Classrooms</div>
+                        <div class="img-description">Lecture Hall Capacity</div>
+                    </div>
+                </div>
+
+                <!-- Faculty (4 images) -->
+                <div class="gallery-item" data-category="faculty">
+                    <img
+                        src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Faculty teaching current affairs for UPSC"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Faculty</div>
+                        <div class="img-description">UPSC Faculty Teaching</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="faculty">
+                    <img
+                        src="https://images.unsplash.com/photo-1516321165247-4aa89a48be28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="GATE faculty explaining technical concepts"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Faculty</div>
+                        <div class="img-description">GATE Faculty Session</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="faculty">
+                    <img
+                        src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="SSC faculty conducting doubt session"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Faculty</div>
+                        <div class="img-description">SSC Faculty Guidance</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="faculty">
+                    <img
+                        src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Faculty interaction with students"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Faculty</div>
+                        <div class="img-description">
+                            Personalized Faculty Support
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students / Activities (4 images) -->
+                <div class="gallery-item" data-category="students">
+                    <img
+                        src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Students participating in group discussion"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Students</div>
+                        <div class="img-description">
+                            Group Discussion Activity
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="students">
+                    <img
+                        src="https://images.unsplash.com/photo-1519070994522-88c6b756330e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Students taking mock test series"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Students</div>
+                        <div class="img-description">Mock Test Session</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="students">
+                    <img
+                        src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Students in library self-study session"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Students</div>
+                        <div class="img-description">Library Self-Study</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="students">
+                    <img
+                        src="https://images.unsplash.com/photo-1535981767287-4f06d5d0a6ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Student receiving one-on-one guidance"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Students</div>
+                        <div class="img-description">
+                            Personal Counseling Session
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facilities / Labs (2 images) -->
+                <div class="gallery-item" data-category="facilities">
+                    <img
+                        src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Computer lab for online test practice"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Facilities</div>
+                        <div class="img-description">Computer Lab Facility</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="facilities">
+                    <img
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Study material and book bank facility"
+                        class="gallery-img"
+                    />
+                    <div class="img-overlay">
+                        <div class="img-category">Facilities</div>
+                        <div class="img-description">Study Material Center</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== LIGHTBOX ===== -->
+            <div class="lightbox" id="lightbox">
+                <button class="lightbox-close" id="lightbox-close">
+                    &times;
+                </button>
+                <button class="lightbox-nav lightbox-prev" id="lightbox-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="lightbox-nav lightbox-next" id="lightbox-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="lightbox-content">
+                    <img src="" alt="" class="lightbox-img" id="lightbox-img" />
+                    <div class="lightbox-caption" id="lightbox-caption"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3 class="footer-logo">ABC IAS Academy</h3>
+                        <p class="footer-tagline">
+                            Your trusted partner in Civil Services preparation
+                            since 2010
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="../index.html">Home</a>
+                        <a href="courses.html">Courses</a>
+                        <a href="faculty.html">Faculty</a>
+                        <a href="testimonial.html">Results</a>
+                        <a href="about.html">About Us</a>
+                        <a href="contacts.html">Contact</a>
+                        <a href="FAQs.html">FAQs</a>
+
+                        <a href="gallery.html">Gallery</a>
+                        <a href="lectures.html">Lectures</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> 123 Academic
+                            Avenue, Mukherjee Nagar, Delhi
+                        </p>
+                        <p><i class="fas fa-phone"></i> +91-8004230656</p>
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            info@abciasacademy.com
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2025 ABC IAS Academy. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Mobile Menu Toggle
+                const mobileMenuBtn =
+                    document.querySelector('.mobile-menu-btn');
+                const navMenu = document.querySelector('.nav-menu');
+
+                mobileMenuBtn.addEventListener('click', function () {
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navMenu.classList.contains(
+                        'active'
+                    )
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                });
+
+                // ===== GALLERY FILTER FUNCTIONALITY =====
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                const galleryItems = document.querySelectorAll('.gallery-item');
+
+                filterButtons.forEach((button) => {
+                    button.addEventListener('click', function () {
+                        // Update active button
+                        filterButtons.forEach((btn) =>
+                            btn.classList.remove('active')
+                        );
+                        this.classList.add('active');
+
+                        const filterValue = this.getAttribute('data-filter');
+
+                        // Filter gallery items
+                        galleryItems.forEach((item) => {
+                            const category = item.getAttribute('data-category');
+
+                            if (
+                                filterValue === 'all' ||
+                                filterValue === category
+                            ) {
+                                item.style.display = 'block';
+                                // Add fade in animation
+                                item.style.animation =
+                                    'fadeIn 0.5s ease forwards';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+
+                // ===== LIGHTBOX FUNCTIONALITY =====
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                const lightboxCaption =
+                    document.getElementById('lightbox-caption');
+                const lightboxClose = document.getElementById('lightbox-close');
+                const lightboxPrev = document.getElementById('lightbox-prev');
+                const lightboxNext = document.getElementById('lightbox-next');
+
+                let currentImageIndex = 0;
+                const galleryImages = Array.from(galleryItems);
+
+                // Open lightbox when clicking on gallery item
+                galleryItems.forEach((item, index) => {
+                    item.addEventListener('click', function () {
+                        const imgSrc =
+                            this.querySelector('.gallery-img').getAttribute(
+                                'src'
+                            );
+                        const imgAlt =
+                            this.querySelector('.gallery-img').getAttribute(
+                                'alt'
+                            );
+                        const imgCategory =
+                            this.querySelector('.img-category').textContent;
+                        const imgDescription =
+                            this.querySelector('.img-description').textContent;
+
+                        currentImageIndex = index;
+                        updateLightbox(
+                            imgSrc,
+                            imgAlt,
+                            imgCategory,
+                            imgDescription
+                        );
+                        lightbox.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    });
+                });
+
+                // Update lightbox content
+                function updateLightbox(src, alt, category, description) {
+                    lightboxImg.setAttribute('src', src);
+                    lightboxImg.setAttribute('alt', alt);
+                    lightboxCaption.innerHTML = `<strong>${category}</strong>: ${description}`;
+                }
+
+                // Close lightbox
+                lightboxClose.addEventListener('click', function () {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+
+                // Close lightbox when clicking outside image
+                lightbox.addEventListener('click', function (e) {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+
+                // Navigate to previous image
+                lightboxPrev.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    currentImageIndex =
+                        (currentImageIndex - 1 + galleryImages.length) %
+                        galleryImages.length;
+                    const currentItem = galleryImages[currentImageIndex];
+                    const imgSrc = currentItem
+                        .querySelector('.gallery-img')
+                        .getAttribute('src');
+                    const imgAlt = currentItem
+                        .querySelector('.gallery-img')
+                        .getAttribute('alt');
+                    const imgCategory =
+                        currentItem.querySelector('.img-category').textContent;
+                    const imgDescription =
+                        currentItem.querySelector(
+                            '.img-description'
+                        ).textContent;
+
+                    updateLightbox(imgSrc, imgAlt, imgCategory, imgDescription);
+                });
+
+                // Navigate to next image
+                lightboxNext.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    currentImageIndex =
+                        (currentImageIndex + 1) % galleryImages.length;
+                    const currentItem = galleryImages[currentImageIndex];
+                    const imgSrc = currentItem
+                        .querySelector('.gallery-img')
+                        .getAttribute('src');
+                    const imgAlt = currentItem
+                        .querySelector('.gallery-img')
+                        .getAttribute('alt');
+                    const imgCategory =
+                        currentItem.querySelector('.img-category').textContent;
+                    const imgDescription =
+                        currentItem.querySelector(
+                            '.img-description'
+                        ).textContent;
+
+                    updateLightbox(imgSrc, imgAlt, imgCategory, imgDescription);
+                });
+
+                // Keyboard navigation
+                document.addEventListener('keydown', function (e) {
+                    if (!lightbox.classList.contains('active')) return;
+
+                    if (e.key === 'Escape') {
+                        lightbox.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+
+                    if (e.key === 'ArrowLeft') {
+                        lightboxPrev.click();
+                    }
+
+                    if (e.key === 'ArrowRight') {
+                        lightboxNext.click();
+                    }
+                });
+
+                // ===== TOUCH SWIPE FOR MOBILE =====
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                lightbox.addEventListener('touchstart', function (e) {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                lightbox.addEventListener('touchend', function (e) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+
+                    if (touchEndX < touchStartX - swipeThreshold) {
+                        // Swipe left - next image
+                        lightboxNext.click();
+                    }
+
+                    if (touchEndX > touchStartX + swipeThreshold) {
+                        // Swipe right - previous image
+                        lightboxPrev.click();
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

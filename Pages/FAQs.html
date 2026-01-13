@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FAQs - Competitive Exam Institute</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../css/courses.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                background-color: #f8f9fa;
+                color: #333;
+                line-height: 1.6;
+                padding: 20px;
+            }
+
+            .scontainer {
+                max-width: 1000px;
+                margin: 100px auto;
+                padding: 20px;
+            }
+
+            .header1 {
+                text-align: center;
+                padding: 30px 20px;
+                background: linear-gradient(135deg, #1a2a6c, #3a7bd5);
+                color: white;
+                border-radius: 15px;
+                margin-bottom: 30px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .header1 h1 {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+                color: #fff;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 700px;
+                margin: 0 auto;
+                color: #e1eeff;
+            }
+
+            .faq-accordion {
+                width: 100%;
+                margin-bottom: 50px;
+            }
+
+            .accordion-item {
+                background: white;
+                margin-bottom: 15px;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+                border-left: 4px solid #3a7bd5;
+                transition: all 0.3s ease;
+            }
+
+            .accordion-item:hover {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            }
+
+            .accordion-header {
+                padding: 20px 25px;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #fff;
+                transition: background-color 0.3s ease;
+            }
+
+            .accordion-header:hover {
+                background-color: #f8faff;
+            }
+
+            .accordion-header.active {
+                background-color: #f0f7ff;
+            }
+
+            .question-content {
+                display: flex;
+                align-items: center;
+                flex: 1;
+            }
+
+            .q-number {
+                background: #3a7bd5;
+                color: white;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                margin-right: 15px;
+                flex-shrink: 0;
+                font-size: 0.9rem;
+            }
+
+            .q-text {
+                font-size: 1.15rem;
+                font-weight: 600;
+                color: #1a2a6c;
+            }
+
+            .accordion-icon {
+                color: #3a7bd5;
+                font-size: 1.2rem;
+                transition: transform 0.3s ease;
+            }
+
+            .accordion-icon.active {
+                transform: rotate(180deg);
+                color: #1a2a6c;
+            }
+
+            .accordion-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+                background-color: #fdfdfd;
+            }
+
+            .answer {
+                padding: 0 25px 25px;
+                color: #555;
+                font-size: 1.05rem;
+                line-height: 1.7;
+                padding-left: 70px;
+            }
+
+            .whatsapp-button {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background-color: #25d366;
+                color: white;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 30px;
+                box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+                text-decoration: none;
+                z-index: 1000;
+                transition: all 0.3s ease;
+            }
+
+            .whatsapp-button:hover {
+                background-color: #128c7e;
+                transform: scale(1.1);
+                box-shadow: 0 7px 25px rgba(37, 211, 102, 0.6);
+            }
+
+            .whatsapp-button-text {
+                position: absolute;
+                top: -45px;
+                right: 0;
+                background: #25d366;
+                color: white;
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-size: 14px;
+                white-space: nowrap;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            }
+
+            .whatsapp-button:hover .whatsapp-button-text {
+                opacity: 1;
+            }
+
+            .contact-info {
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                margin-top: 40px;
+                text-align: center;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+                border-top: 5px solid #3a7bd5;
+            }
+
+            .contact-info h2 {
+                color: #1a2a6c;
+                margin-bottom: 15px;
+                font-size: 1.8rem;
+            }
+
+            .contact-info p {
+                color: #666;
+                margin-bottom: 25px;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .contact-methods {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .contact-method {
+                background: #f0f7ff;
+                padding: 15px 25px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                transition: all 0.3s ease;
+            }
+
+            .contact-method:hover {
+                background: #e1eeff;
+                transform: translateY(-3px);
+            }
+
+            .contact-method i {
+                color: #3a7bd5;
+                font-size: 1.3rem;
+            }
+
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                .accordion-header {
+                    padding: 18px 20px;
+                }
+
+                .q-text {
+                    font-size: 1.05rem;
+                }
+
+                .answer {
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+
+                .contact-methods {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .whatsapp-button {
+                    bottom: 20px;
+                    right: 20px;
+                    width: 55px;
+                    height: 55px;
+                    font-size: 26px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .container {
+                    padding: 10px;
+                }
+
+                header {
+                    padding: 25px 15px;
+                }
+
+                .q-number {
+                    margin-right: 12px;
+                    width: 26px;
+                    height: 26px;
+                    font-size: 0.8rem;
+                }
+
+                .question-content {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .answer {
+                    padding: 0 20px 20px;
+                }
+            }
+
+            /* Animation for accordion opening */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .accordion-content.open {
+                animation: fadeIn 0.4s ease-out;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="sticky-header">
+            <nav>
+                <div class="logo">ABC <span>IAS Academy</span></div>
+                <ul class="nav-links nav-menu">
+                    <li>
+                        <a href="../index.html" class="active">Home</a>
+                    </li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="faculty.html">Faculty</a></li>
+                    <li><a href="testimonial.html">Results</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <a href="contacts.html">Contact</a>
+                </ul>
+                <button class="mobile-menu-btn">☰</button>
+            </nav>
+        </header>
+        <div class="scontainer">
+            <header class="header1">
+                <h1>Frequently Asked Questions</h1>
+                <p class="subtitle">
+                    Find quick answers to common questions about our courses,
+                    faculty, admission process, and more. Click on any question
+                    to expand the answer.
+                </p>
+            </header>
+
+            <div class="faq-accordion">
+                <!-- FAQ Item 1 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="1">
+                        <div class="question-content">
+                            <div class="q-number">1</div>
+                            <div class="q-text">What courses do you offer?</div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            We offer structured coaching programs for
+                            competitive exams such as UPSC, SSC, GATE, and other
+                            academic and professional courses. Each course is
+                            designed as per the latest exam syllabus.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="2">
+                        <div class="question-content">
+                            <div class="q-number">2</div>
+                            <div class="q-text">
+                                Are demo classes available before admission?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            Yes, demo classes are available for selected courses
+                            so that students can understand our teaching
+                            methodology and classroom environment before
+                            enrolling.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="3">
+                        <div class="question-content">
+                            <div class="q-number">3</div>
+                            <div class="q-text">
+                                What is the duration of the courses?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            Course duration varies depending on the exam and
+                            course type. Foundation courses generally range from
+                            6 to 12 months, while short-term courses are also
+                            available.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="4">
+                        <div class="question-content">
+                            <div class="q-number">4</div>
+                            <div class="q-text">
+                                Who are the faculty members?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            Our faculty members are experienced educators with
+                            strong subject knowledge and proven teaching
+                            expertise in their respective domains.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="5">
+                        <div class="question-content">
+                            <div class="q-number">5</div>
+                            <div class="q-text">
+                                Do you provide study material and notes?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            Yes, comprehensive study material and updated notes
+                            are provided for all courses to support classroom
+                            learning and self-study.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="6">
+                        <div class="question-content">
+                            <div class="q-number">6</div>
+                            <div class="q-text">
+                                Are online or recorded classes available?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            Selected courses offer online and recorded class
+                            support for students who are unable to attend all
+                            sessions physically.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="7">
+                        <div class="question-content">
+                            <div class="q-number">7</div>
+                            <div class="q-text">
+                                How can I contact the institute for inquiries?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            Students can directly contact us via the Call or
+                            WhatsApp buttons available on our website for quick
+                            assistance.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="8">
+                        <div class="question-content">
+                            <div class="q-number">8</div>
+                            <div class="q-text">
+                                Where is the institute located?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            The institute is located at an easily accessible
+                            location. You can find the exact address and
+                            navigation details through the Google Map provided
+                            on our website.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 9 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="9">
+                        <div class="question-content">
+                            <div class="q-number">9</div>
+                            <div class="q-text">
+                                Is there a test series or performance evaluation
+                                system?
+                            </div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            Yes, regular tests, practice assignments, and
+                            performance evaluations are conducted to track
+                            student progress and exam readiness.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 10 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" data-id="10">
+                        <div class="question-content">
+                            <div class="q-number">10</div>
+                            <div class="q-text">How can I take admission?</div>
+                        </div>
+                        <div class="accordion-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="answer">
+                            You can visit the institute directly or contact us
+                            through WhatsApp or phone. Our team will guide you
+                            through the admission process step by step.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h2>Need More Information?</h2>
+                <p>
+                    If you have additional questions or need personalized
+                    guidance, our team is here to help you.
+                </p>
+
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Call us: +91-8840385022</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span
+                            >Visit our institute: 123 Education Street,
+                            City</span
+                        >
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email: shamtechsolution.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3 class="footer-logo">ABC IAS Academy</h3>
+                        <p class="footer-tagline">
+                            Your trusted partner in Civil Services preparation
+                            since 2010
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="../index.html">Home</a>
+                        <a href="courses.html">Courses</a>
+                        <a href="faculty.html">Faculty</a>
+                        <a href="testimonial.html">Results</a>
+                        <a href="about.html">About Us</a>
+                        <a href="contacts.html">Contact</a>
+                        <a href="FAQs.html">FAQs</a>
+
+                        <a href="gallery.html">Gallery</a>
+                        <a href="lectures.html">Lectures</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> 123 Academic
+                            Avenue, Mukherjee Nagar, Delhi
+                        </p>
+                        <p><i class="fas fa-phone"></i> +91-8004230656</p>
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            info@abciasacademy.com
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2025 ABC IAS Academy. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        <!-- WhatsApp Button -->
+        <a
+            href="https://wa.me/918004230656?text=Hello%20I%20have%20a%20question%20about%20your%20courses%20and%20admission%20process"
+            class="whatsapp-button"
+            target="_blank"
+        >
+            <div class="whatsapp-button-text">Chat with us on WhatsApp</div>
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Mobile Menu Toggle
+                const mobileMenuBtn =
+                    document.querySelector('.mobile-menu-btn');
+                const navMenu = document.querySelector('.nav-menu');
+
+                mobileMenuBtn.addEventListener('click', function () {
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navMenu.classList.contains(
+                        'active'
+                    )
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                });
+
+                // Get all accordion headers
+                const accordionHeaders =
+                    document.querySelectorAll('.accordion-header');
+
+                // Add click event to each accordion header
+                accordionHeaders.forEach((header) => {
+                    header.addEventListener('click', function () {
+                        // Get the accordion content for this header
+                        const content = this.nextElementSibling;
+                        const icon = this.querySelector('.accordion-icon');
+
+                        // Check if this accordion is already open
+                        const isOpen =
+                            content.style.maxHeight &&
+                            content.style.maxHeight !== '0px';
+
+                        // Close all accordions first
+                        closeAllAccordions();
+
+                        // If this accordion was closed, open it
+                        if (!isOpen) {
+                            // Set max-height to scrollHeight to expand
+                            content.style.maxHeight =
+                                content.scrollHeight + 'px';
+                            content.classList.add('open');
+                            this.classList.add('active');
+                            icon.classList.add('active');
+                        }
+                    });
+                });
+
+                // Function to close all accordions
+                function closeAllAccordions() {
+                    accordionHeaders.forEach((header) => {
+                        const content = header.nextElementSibling;
+                        const icon = header.querySelector('.accordion-icon');
+
+                        content.style.maxHeight = null;
+                        content.classList.remove('open');
+                        header.classList.remove('active');
+                        icon.classList.remove('active');
+                    });
+                }
+
+                // Optional: Open first accordion by default
+                // accordionHeaders[0].click();
+
+                // WhatsApp button interaction
+                const whatsappButton =
+                    document.querySelector('.whatsapp-button');
+                whatsappButton.addEventListener('click', function () {
+                    // You can add analytics tracking here
+                    console.log('WhatsApp button clicked for direct contact');
+                });
+
+                // Add hover effect for accordion items
+                const accordionItems =
+                    document.querySelectorAll('.accordion-item');
+                accordionItems.forEach((item) => {
+                    item.addEventListener('mouseenter', function () {
+                        this.style.borderLeftColor = '#25D366';
+                    });
+
+                    item.addEventListener('mouseleave', function () {
+                        // Only reset border color if not active
+                        const header = this.querySelector('.accordion-header');
+                        if (!header.classList.contains('active')) {
+                            this.style.borderLeftColor = '#3a7bd5';
+                        }
+                    });
+                });
+
+                // Keep green border for active accordion items
+                accordionHeaders.forEach((header) => {
+                    header.addEventListener('click', function () {
+                        const item = this.parentElement;
+                        if (this.classList.contains('active')) {
+                            item.style.borderLeftColor = '#25D366';
+                        } else {
+                            item.style.borderLeftColor = '#3a7bd5';
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
